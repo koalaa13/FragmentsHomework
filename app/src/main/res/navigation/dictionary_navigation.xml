@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dictionary_navigation"
+    app:startDestination="@id/dictionaryFragment">
+
+    <fragment
+        android:id="@+id/dictionaryFragment"
+        android:name="com.example.fragmentshomework.fragments.DictionaryFragment"
+        android:label="DictionaryFragment"
+        tools:layout="@layout/main_layout">
+        <argument
+            android:name="count"
+            android:defaultValue="0"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_dictionaryFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+        <action
+            android:id="@+id/action_dictionaryFragment_self"
+            app:destination="@id/dictionaryFragment" />
+        <action
+            android:id="@+id/action_dictionaryFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+</navigation>

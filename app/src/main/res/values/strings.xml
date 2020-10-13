@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">FragmentsHomework</string>
+    <string name="home_navigation_title">Home</string>
+    <string name="dictionary_navigation_title">Dictionary</string>
+    <string name="chat_navigation_title">Chat</string>
+    <string name="click_me">Click me!</string>
+</resources>
