@@ -2,6 +2,7 @@ package com.example.fragmentshomework
 
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
@@ -17,10 +18,24 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+
         setContentView(R.layout.activity_main)
         Log.i(TAG, "onCreate")
 
+        if (savedInstanceState == null) {
+            setupBottomNavigation()
+        }
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
         setupBottomNavigation()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        onBackPressed()
+        return true
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -29,9 +44,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupBottomNavigation() {
         val navGraphIds = listOf(
-            R.navigation.chat_navigation,
+            R.navigation.home_navigation,
             R.navigation.dictionary_navigation,
-            R.navigation.home_navigation
+            R.navigation.chat_navigation
         )
         val controller = bottom_navigation.setupWithNavController(
             navGraphIds = navGraphIds,

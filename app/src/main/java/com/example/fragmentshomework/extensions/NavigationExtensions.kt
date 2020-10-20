@@ -147,7 +147,10 @@ fun BottomNavigationView.setupWithNavController(
     // Finally, ensure that we update our BottomNavigationView when the back stack changes
     fragmentManager.addOnBackStackChangedListener {
         if (!isOnFirstFragment && !fragmentManager.isOnBackStack(firstFragmentTag)) {
-            this.selectedItemId = firstFragmentGraphId
+            // KILL APP HERE, BUT HOw??(((
+            fragmentManager.findFragmentByTag(selectedItemTag)?.activity?.finishAffinity()
+            // YEAH IT IS ABSOLUTELY SHIT SOLUTION BUT IDK ANOTHER
+            while (true) {}
         }
 
         // Reset the graph if the currentDestination is not valid (happens when the back

@@ -16,13 +16,17 @@ class HomeFragment : Fragment() {
         private const val TITLE = "Home"
     }
 
-    private var count = 0
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        retainInstance = true
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
         Log.i(TAG, "onCreateView")
         return inflater.inflate(R.layout.main_layout, container, false)
     }
@@ -31,7 +35,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Log.i(TAG, "onViewCreated")
         activity?.title = TITLE
-        count = HomeFragmentArgs.fromBundle(requireArguments()).count
+        val count = HomeFragmentArgs.fromBundle(requireArguments()).count
         data_to_show.text = count.toString()
         button.setOnClickListener {
             navigate(HomeFragmentDirections.actionHomeFragmentSelf(count + 1))
