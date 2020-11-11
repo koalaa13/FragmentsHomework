@@ -31,7 +31,6 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import com.example.fragmentshomework.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import java.util.*
 
 /**
  * Manages the various graphs needed for a [BottomNavigationView].
@@ -45,7 +44,6 @@ fun BottomNavigationView.setupWithNavController(
     intent: Intent
 ): LiveData<NavController> {
 
-    val tabs = Stack<Int>()
     // Map of tags
     val graphIdToTagMap = SparseArray<String>()
     // Result. Mutable live data with the selected controlled
@@ -71,7 +69,6 @@ fun BottomNavigationView.setupWithNavController(
 
         if (index == 0) {
             firstFragmentGraphId = graphId
-            tabs.push(firstFragmentGraphId)
         }
 
         // Save to the map
@@ -136,11 +133,6 @@ fun BottomNavigationView.setupWithNavController(
                 selectedItemTag = newlySelectedItemTag
                 isOnFirstFragment = selectedItemTag == firstFragmentTag
                 selectedNavController.value = selectedFragment.navController
-                Log.i("NavigationExtension", selectedFragment.navController.graph.id.toString())
-                if (tabs.peek() != selectedFragment.navController.graph.id) {
-                    tabs.push(selectedFragment.navController.graph.id)
-                }
-                Log.i("NavigationExtension", "Current stack is: \n$tabs")
                 true
             } else {
                 false
@@ -157,16 +149,7 @@ fun BottomNavigationView.setupWithNavController(
     // Finally, ensure that we update our BottomNavigationView when the back stack changes
     fragmentManager.addOnBackStackChangedListener {
         if (!isOnFirstFragment && !fragmentManager.isOnBackStack(firstFragmentTag)) {
-//            this.selectedItemId = firstFragmentGraphId
-            if (tabs.isNotEmpty()) {
-                if (tabs.size > 1) {
-                    tabs.pop()
-                }
-                Log.i("NavigationExtension", "Current stack is: \n$tabs")
-                this.selectedItemId = tabs.peek()
-            } else {
-                fragmentManager.findFragmentByTag(selectedItemTag)?.activity?.finish()
-            }
+            fragmentManager.findFragmentByTag(selectedItemTag)?.activity?.finish()
         }
 
         // Reset the graph if the currentDestination is not valid (happens when the back
